@@ -1,4 +1,4 @@
-This shows 
+FMX Template showing the new Android Kiosk Mode introduced in Android 6.0 with Embarcadero Delphi.
 
 How install application KIOSK mode:
 
@@ -13,4 +13,3 @@ How delete application:
 2. Go to the folder "Commands", select DeleteApp.bat and open in edit mode.
 Check the path to adb.exe on your pc.
 Run DeleteApp.bat as administrator.
-
