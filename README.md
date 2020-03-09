@@ -1,4 +1,7 @@
+This shows 
+
 How install application KIOSK mode:
+
 1. Сompile and install the application on your device;
 2. It is important that there are no accounts on your device (google account etc ...);
 3. Go to the folder "Commands", select SetOwner.bat and open in edit mode.
