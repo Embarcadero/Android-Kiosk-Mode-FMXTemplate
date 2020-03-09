@@ -1,0 +1,67 @@
+object ExitDialog: TExitDialog
+  Align = Contents
+  Size.Width = 294.000000000000000000
+  Size.Height = 402.000000000000000000
+  Size.PlatformDefault = False
+  object Rectangle1: TRectangle
+    Align = Contents
+    Fill.Color = x96000000
+    Size.Width = 294.000000000000000000
+    Size.Height = 402.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Thickness = 0.000000000000000000
+  end
+  object Layout1: TLayout
+    Align = Center
+    Size.Width = 204.000000000000000000
+    Size.Height = 210.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object edtPass: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      Align = Top
+      TabOrder = 0
+      Position.X = 10.000000000000000000
+      Position.Y = 32.000000000000000000
+      Margins.Left = 10.000000000000000000
+      Margins.Top = 15.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Size.Width = 184.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object lblEnterPass: TLabel
+      Align = Top
+      StyledSettings = [Family, Style]
+      Size.Width = 204.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 15.000000000000000000
+      TextSettings.FontColor = claBlanchedalmond
+      TextSettings.HorzAlign = Center
+      Text = 'Enter password for exit'
+      TabOrder = 1
+    end
+    object EXIT: TButton
+      Align = Bottom
+      Margins.Bottom = 5.000000000000000000
+      Position.Y = 105.000000000000000000
+      Size.Width = 204.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'EXIT'
+      OnClick = EXITClick
+    end
+    object Cancel: TButton
+      Align = Bottom
+      Position.Y = 160.000000000000000000
+      Size.Width = 204.000000000000000000
+      Size.Height = 50.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      Text = 'Cancel'
+      OnClick = CancelClick
+    end
+  end
+end
