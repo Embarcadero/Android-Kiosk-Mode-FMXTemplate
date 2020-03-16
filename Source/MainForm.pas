@@ -23,7 +23,7 @@ uses
 type
   TDashboard = class(TForm)
     grdpnlTopButtons: TGridPanelLayout;
-    btnStartTrainingTrip: TButton;
+    btnClearOwnerState: TButton;
     btnDashboard: TButton;
     grdpnlTBottomButtons: TGridPanelLayout;
     btnStartTrip: TButton;
@@ -47,7 +47,7 @@ type
     procedure btnExitAppClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnStartEmergencyClick(Sender: TObject);
-    procedure btnStartTrainingTripClick(Sender: TObject);
+    procedure btnClearOwnerStateClick(Sender: TObject);
   private
     { Private declarations }
     FKioskApp: TKioskApplication;
@@ -106,7 +106,7 @@ begin
   GoToSettings;
 end;
 
-procedure TDashboard.btnStartTrainingTripClick(Sender: TObject);
+procedure TDashboard.btnClearOwnerStateClick(Sender: TObject);
 begin
   TDialogService.MessageDialog(RS_CLEAR_OWN_STATE, TMsgDlgType.mtConfirmation, [TMsgDlgBtn.mbYes,
     TMsgDlgBtn.mbNo], TMsgDlgBtn.mbNo, 0,
@@ -117,7 +117,6 @@ begin
         FKioskApp.CleanOwnerState;
       end;
     end);
-
 end;
 
 procedure TDashboard.FormCreate(Sender: TObject);

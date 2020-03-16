@@ -4,13 +4,10 @@ interface
 
 uses
   FMX.platform,
-{$IFDEF ANDROID}
-  Androidapi.JNI.App,
   Androidapi.JNI.JavaTypes,
   Androidapi.JNI.GraphicsContentViewText,
   android.app.admin.DevicePolicyManager,
   android.content.ComponentName,
-{$ENDIF}
   System.Classes,
   System.SysUtils;
 
@@ -53,7 +50,10 @@ uses
 
 function TKioskApplication.ApplicationEventChanged(AAppEvent: TApplicationEvent; AContext: TObject): Boolean;
 begin
-  ActiveOtherActivity := not(AAppEvent = TApplicationEvent.BecameActive);
+  if AAppEvent = TApplicationEvent.BecameActive then
+  begin
+    ActiveOtherActivity := False;
+  end;
 end;
 
 procedure TKioskApplication.CleanOwnerState;
