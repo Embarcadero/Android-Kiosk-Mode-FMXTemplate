@@ -3,7 +3,10 @@ echo.
 echo DELETE APPLICATION
 echo.
 
-"C:\Users\Public\Documents\Embarcadero\Studio\20.0\PlatformSDKs\android-sdk-windows\platform-tools\adb.exe" shell dpm remove-active-admin com.mycompany.kioskapp/com.kiosk.admin.AdminReceiver
-"C:\Users\Public\Documents\Embarcadero\Studio\20.0\PlatformSDKs\android-sdk-windows\platform-tools\adb.exe" shell pm uninstall -k com.mycompany.kioskapp
+adb.exe shell dpm remove-active-admin com.mycompany.kioskapp/com.kiosk.admin.AdminReceiver
+adb.exe shell pm uninstall -k com.mycompany.kioskapp
 
+echo.
+echo If you don't see "Success" above, then adb.exe might not be on your path.
+echo   Check your path or update this batch file if necessary.
 pause
