@@ -5,7 +5,7 @@ object ExitDialog: TExitDialog
   Size.PlatformDefault = False
   object Rectangle1: TRectangle
     Align = Contents
-    Fill.Color = x96000000
+    Fill.Color = xFF413B51
     Size.Width = 294.000000000000000000
     Size.Height = 402.000000000000000000
     Size.PlatformDefault = False
@@ -16,7 +16,7 @@ object ExitDialog: TExitDialog
     Size.Width = 204.000000000000000000
     Size.Height = 210.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 1
+    TabOrder = 2
     object edtPass: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
       Align = Top
@@ -63,5 +63,17 @@ object ExitDialog: TExitDialog
       Text = 'Cancel'
       OnClick = CancelClick
     end
+  end
+  object lblCheatPass: TLabel
+    Align = Top
+    StyledSettings = [Family, Style]
+    Size.Width = 294.000000000000000000
+    Size.Height = 42.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    TextSettings.FontColor = claWhite
+    TextSettings.HorzAlign = Center
+    Text = 'Password for exit : 1482'
+    TabOrder = 1
   end
 end

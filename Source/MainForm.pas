@@ -32,7 +32,6 @@ type
     Panel4: TPanel;
     btnStartEmergency: TButton;
     lblSOS: TLabel;
-    lblTestInfoAboutSOS: TLabel;
     Layout2: TLayout;
     Label1: TLabel;
     lytHeader: TLayout;
@@ -94,6 +93,7 @@ begin
         ShowExitDialog(C_PASS, Self,
           procedure
           begin
+            // To exit kiosk mode, just call StopLockTask
             FKioskApp.StopLockTask;
             Close;
           end);
@@ -115,6 +115,7 @@ begin
       if AResult = 6 then
       begin
         FKioskApp.CleanOwnerState;
+        // after clearing the status of the owner of the application, it will have access to uninstall from programs
       end;
     end);
 end;
@@ -138,6 +139,7 @@ end;
 procedure TDashboard.FormShow(Sender: TObject);
 begin
   try
+    // add application package names if necessary to open in kiosk mode
     FKioskApp.StartLockTask(['com.android.settings']);
   except
     ShowMessage(RS_MESS_IS_NOT_ADMIN);
@@ -149,6 +151,8 @@ var
   LIntent: JIntent;
 begin
   FKioskApp.ActiveOtherActivity := True;
+  // It is important to set the ActiveOtherActivity flag before opening another application in kiosk mode
+
   LIntent := TJIntent.JavaClass.init(TJSettings.JavaClass.ACTION_WIFI_SETTINGS);
   LIntent.addFlags(TJIntent.JavaClass.FLAG_ACTIVITY_NEW_TASK); // <-- this might be optional
   TAndroidHelper.Context.startActivity(LIntent);

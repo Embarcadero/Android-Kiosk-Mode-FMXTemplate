@@ -57,7 +57,16 @@ begin
 end;
 
 procedure TKioskApplication.CleanOwnerState;
+var
+  LRestrictions: TArrayOfJStrings;
+  I: Integer;
 begin
+  LRestrictions := GetRestrictions;
+  for I := Low(LRestrictions) to High(LRestrictions) do
+    GetDevicePolicyManager.clearUserRestriction(FAdmin, LRestrictions[I]);
+
+  GetDevicePolicyManager.clearPackagePersistentPreferredActivities(FAdmin, TAndroidHelper.Activity.getPackageName);
+
   GetDevicePolicyManager.clearDeviceOwnerApp(TAndroidHelper.Context.getPackageName);
 end;
 
@@ -70,8 +79,7 @@ begin
   if ApplicationService <> nil then
     ApplicationService.SetApplicationEventHandler(ApplicationEventChanged);
 
-  FAdmin := TJComponentName.JavaClass.createRelative(TAndroidHelper.Context.getPackageName,
-    StringToJString('com.kiosk.admin.AdminReceiver'));
+  FAdmin := TJComponentName.JavaClass.createRelative(TAndroidHelper.Context.getPackageName, StringToJString('com.kiosk.admin.AdminReceiver'));
 end;
 
 procedure TKioskApplication.DoCloseSystemDialog;
@@ -90,8 +98,7 @@ begin
 
   if not ActiveOtherActivity then
   begin
-    ActivityManager := TJActivityManager.Wrap(TAndroidHelper.Context.getSystemService
-      (TJContext.JavaClass.ACTIVITY_SERVICE));
+    ActivityManager := TJActivityManager.Wrap(TAndroidHelper.Context.getSystemService(TJContext.JavaClass.ACTIVITY_SERVICE));
     ActivityManager.moveTaskToFront(TAndroidHelper.Activity.getTaskId(), 0);
   end;
 end;
@@ -121,10 +128,7 @@ var
 begin
 
   DecorView := TAndroidHelper.Activity.getWindow.getDecorView;
-  DecorView.setSystemUiVisibility(TJView.JavaClass.SYSTEM_UI_FLAG_IMMERSIVE or
-    TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_STABLE or TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-    or TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or TJView.JavaClass.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-    or TJView.JavaClass.SYSTEM_UI_FLAG_FULLSCREEN);
+  DecorView.setSystemUiVisibility(TJView.JavaClass.SYSTEM_UI_FLAG_IMMERSIVE or TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_STABLE or TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or TJView.JavaClass.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or TJView.JavaClass.SYSTEM_UI_FLAG_HIDE_NAVIGATION or TJView.JavaClass.SYSTEM_UI_FLAG_FULLSCREEN);
 end;
 
 procedure TKioskApplication.StartLockTask(AOtherAppPackages: TArrayOfStrings = []);
@@ -185,17 +189,19 @@ end;
 
 procedure TKioskApplication.StopLockTask;
 var
-  I: Integer;
   LRestrictions: TArrayOfJStrings;
+  I: Integer;
 begin
   TAndroidHelper.Activity.stopLockTask;
 
-  LRestrictions := GetRestrictions;
-  for I := Low(LRestrictions) to High(LRestrictions) do
-    GetDevicePolicyManager.clearUserRestriction(FAdmin, LRestrictions[I]);
+  if GetDevicePolicyManager.isDeviceOwnerApp(TAndroidHelper.Activity.getPackageName) then
+  begin
+    LRestrictions := GetRestrictions;
+    for I := Low(LRestrictions) to High(LRestrictions) do
+      GetDevicePolicyManager.clearUserRestriction(FAdmin, LRestrictions[I]);
 
-  GetDevicePolicyManager.clearPackagePersistentPreferredActivities(FAdmin,
-    TAndroidHelper.Activity.getPackageName);
+    GetDevicePolicyManager.clearPackagePersistentPreferredActivities(FAdmin, TAndroidHelper.Activity.getPackageName);
+  end;
 
   StopThreadCloseSystemDialogs;
 end;

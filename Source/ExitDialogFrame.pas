@@ -27,6 +27,7 @@ type
     lblEnterPass: TLabel;
     EXIT: TButton;
     Cancel: TButton;
+    lblCheatPass: TLabel;
     procedure EXITClick(Sender: TObject);
     procedure CancelClick(Sender: TObject);
   private
@@ -56,6 +57,7 @@ begin
   LExitDialog.FPassword := APassword;
   LExitDialog.Parent := AParent;
   LExitDialog.Visible := True;
+  LExitDialog.lblCheatPass.Text := 'Password for exit : ' + APassword;  // For test
 end;
 
 { TExitDialog }
